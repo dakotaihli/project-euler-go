@@ -163,6 +163,11 @@ func problem5() {
 	fmt.Println(lcm(firstN))
 }
 
+func problem6() {
+	N := 100
+	fmt.Println(((N)*(N+1)/2)*((N)*(N+1)/2) - ((N)*(N+1)*(1+(2*N)))/6)
+}
+
 func main() {
-	problem5()
+	problem6()
 }
