@@ -60,6 +60,38 @@ func primeFactorize(n int) []int {
 	return output
 }
 
+func slicesEqual(s, t []int) bool {
+	out := true
+	if len(s) != len(t) {
+		out = false
+	} else {
+		for i := 0; i < len(s); i++ {
+			out = out && (s[i] == t[i])
+		}
+	}
+	return out
+}
+
+func reverse(s []int) []int {
+	out := make([]int, len(s))
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		out[i], out[j] = s[j], s[i]
+	}
+	return out
+}
+
+func digits(n int) []int {
+	var outs []int
+	for i := 0; math.Pow10(i) <= float64(n); i++ {
+		outs = append(outs, int(math.Floor(float64(n)/math.Pow10(i)))%10)
+	}
+	return reverse(outs)
+}
+
+func isPalindrome(n int) bool {
+	return slicesEqual(digits(n), reverse(digits(n)))
+}
+
 func problem2() {
 	upperLimit := 4000000
 	var sum int
@@ -77,6 +109,22 @@ func problem3() {
 	fmt.Println(facs[len(facs)-1])
 }
 
+func problem4() {
+	var found bool
+	for i := 0; i < 1998 && !found; i++ {
+		for j := 0; j <= i; j++ {
+			if isPalindrome((999 - j) * (999 - (i - j))) {
+				found = true
+				fmt.Println(999-j, 999-(i-j), (999-j)*(999-(i-j)))
+				break
+			}
+		}
+		if found {
+			break
+		}
+	}
+}
+
 func main() {
-	problem3()
+	problem4()
 }
