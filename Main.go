@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func problem1() {
 	upperLimit := 1000
@@ -23,6 +26,40 @@ func fibonacci(n int) int {
 	}
 }
 
+func isPrime(n int) bool {
+	var isComp bool
+	for i := 2; float64(i) <= math.Sqrt(float64(n)); i++ {
+		isComp = isComp || (n%i == 0)
+	}
+	return !isComp
+}
+
+func smallestPrime(n int) int {
+	var out int
+	if isPrime(n) {
+		out = n
+	} else {
+		for i := 2; float64(i) <= math.Sqrt(float64(n)); i++ {
+			if (n%i == 0) && isPrime(i) {
+				out = i
+				break
+			}
+		}
+	}
+	return out
+}
+
+func primeFactorize(n int) []int {
+	var output []int
+	running := n
+	for !isPrime(running) {
+		output = append(output, smallestPrime(running))
+		running = running / smallestPrime(running)
+	}
+	output = append(output, running)
+	return output
+}
+
 func problem2() {
 	upperLimit := 4000000
 	var sum int
@@ -34,6 +71,12 @@ func problem2() {
 	fmt.Println(sum)
 }
 
+func problem3() {
+	N := 600851475143
+	facs := primeFactorize(N)
+	fmt.Println(facs[len(facs)-1])
+}
+
 func main() {
-	problem2()
+	problem3()
 }
