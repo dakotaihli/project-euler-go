@@ -168,6 +168,17 @@ func problem6() {
 	fmt.Println(((N)*(N+1)/2)*((N)*(N+1)/2) - ((N)*(N+1)*(1+(2*N)))/6)
 }
 
+func problem7() {
+	N := 10001
+	var primes []int
+	for i := 2; len(primes) < N; i++ {
+		if isPrime(i) {
+			primes = append(primes, i)
+		}
+	}
+	fmt.Println(primes[N-1])
+}
+
 func main() {
-	problem6()
+	problem7()
 }
