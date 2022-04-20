@@ -125,6 +125,44 @@ func problem4() {
 	}
 }
 
+func binGCD(n, m int) int {
+	var a, b int
+	if n <= m {
+		a, b = m, n
+	} else {
+		a, b = n, m
+	}
+	for a%b != 0 {
+		a, b = b, a%b
+	}
+	return b
+}
+
+func binLCM(n, m int) int {
+	return (n * m) / binGCD(n, m)
+}
+
+func lcm(s []int) int {
+	out := 1
+	for i := 0; i < len(s); i++ {
+		if s[i] < 0 {
+			out = binLCM(out, -s[i])
+		} else if s[i] > 0 {
+			out = binLCM(out, s[i])
+		}
+	}
+	return out
+}
+
+func problem5() {
+	N := 20
+	var firstN []int
+	for i := 1; i <= N; i++ {
+		firstN = append(firstN, i)
+	}
+	fmt.Println(lcm(firstN))
+}
+
 func main() {
-	problem4()
+	problem5()
 }
