@@ -27,12 +27,22 @@ func fibonacci(n int) int {
 	}
 }
 
+//isPrime returns whether |n| is prime
 func isPrime(n int) bool {
-	var isComp bool
-	for i := 2; float64(i) <= math.Sqrt(float64(n)); i++ {
-		isComp = isComp || (n%i == 0)
+	if n < 0 {
+		n *= -1
 	}
-	return !isComp
+	if (n < 2) || (n > 3 && n%6 != 1 && n%6 != 5) {
+		return false
+	} else if n == 2 || n == 3 {
+		return true
+	} else {
+		var isComp bool
+		for i := 2; i*i <= n; i++ {
+			isComp = isComp || (n%i == 0)
+		}
+		return !isComp
+	}
 }
 
 func smallestPrime(n int) int {
@@ -40,7 +50,7 @@ func smallestPrime(n int) int {
 	if isPrime(n) {
 		out = n
 	} else {
-		for i := 2; float64(i) <= math.Sqrt(float64(n)); i++ {
+		for i := 2; i*i <= n; i++ {
 			if (n%i == 0) && isPrime(i) {
 				out = i
 				break
@@ -58,6 +68,16 @@ func primeFactorize(n int) []int {
 		running = running / smallestPrime(running)
 	}
 	output = append(output, running)
+	return output
+}
+
+func primesBelow(n int) []int {
+	var output []int
+	for i := 2; i < n; i++ {
+		if isPrime(i) {
+			output = append(output, i)
+		}
+	}
 	return output
 }
 
@@ -215,6 +235,16 @@ func problem9() {
 	fmt.Println(ag * bg * cg)
 }
 
+func problem10() {
+	n := 2000000
+	primes := primesBelow(n)
+	var sum int
+	for _, p := range primes {
+		sum += p
+	}
+	fmt.Println(sum)
+}
+
 func main() {
-	problem9()
+	problem10()
 }
