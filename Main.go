@@ -203,6 +203,18 @@ func problem8() {
 	fmt.Println(maxProd)
 }
 
+func problem9() {
+	var ag, bg, cg int
+	for c := 334; c < 998; c++ {
+		for b := 2; b+c < 999; b++ {
+			if (b*b)+(1000-(b+c))*(1000-(b+c)) == c*c {
+				ag, bg, cg = (1000 - (b + c)), b, c
+			}
+		}
+	}
+	fmt.Println(ag * bg * cg)
+}
+
 func main() {
-	problem8()
+	problem9()
 }
