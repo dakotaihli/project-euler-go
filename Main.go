@@ -358,6 +358,10 @@ func problem14() {
 	fmt.Println(indexLongest, lengthLongest)
 }
 
+func problem15() {
+	fmt.Println("No code necessary. It's a permutation of a multiset, this is basic combinatorics")
+}
+
 func main() {
-	problem14()
+	problem15()
 }
