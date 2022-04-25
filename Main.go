@@ -323,6 +323,41 @@ func problem13() {
 	fmt.Println(reverseSum)
 }
 
+func collatz(n int) int {
+	if n%2 == 0 {
+		return n / 2
+	} else {
+		return (3 * n) + 1
+	}
+}
+
+func problem14() {
+	numberOfConcern := 1000000
+	collatzLengths := map[int]int{
+		1: 1,
+	}
+	for i := 2; i <= numberOfConcern; i++ {
+		if _, ok := collatzLengths[i]; !ok {
+			var collatzPath []int
+			var defined bool
+			for j := i; !defined; j = collatz(j) {
+				collatzPath = append(collatzPath, j)
+				_, defined = collatzLengths[j]
+			}
+			for j, N := 2, len(collatzPath); j <= N; j++ {
+				collatzLengths[collatzPath[N-j]] = collatzLengths[collatzPath[N-1]] + j - 1
+			}
+		}
+	}
+	var indexLongest, lengthLongest int
+	for n, L := range collatzLengths {
+		if n < numberOfConcern && L > lengthLongest {
+			indexLongest, lengthLongest = n, L
+		}
+	}
+	fmt.Println(indexLongest, lengthLongest)
+}
+
 func main() {
-	problem13()
+	problem14()
 }
