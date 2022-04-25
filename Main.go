@@ -280,6 +280,30 @@ func problem11() {
 	fmt.Println(biggestHoriz, biggestVert, biggestDiag, biggestRDiag)
 }
 
+func divisors(n int) []int {
+	var divs []int
+	for i := 1; i <= n; i++ {
+		if n%i == 0 {
+			divs = append(divs, i)
+		}
+	}
+	return divs
+}
+
+func triangle(n int) int {
+	return (n * (n + 1)) / 2
+}
+
+//This is really slow
+func problem12() {
+	var firstIndex int
+	for i := 1; len(divisors(triangle(i))) <= 500; i++ {
+		firstIndex = i
+		fmt.Println(triangle(i), "has", len(divisors(triangle(i))), "divisors")
+	}
+	fmt.Println(triangle(firstIndex+1), "has", len(divisors(triangle(firstIndex+1))), "divisors")
+}
+
 func main() {
-	problem11()
+	problem12()
 }
