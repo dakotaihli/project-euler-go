@@ -387,6 +387,26 @@ func stringMult(nums []string) string {
 	}
 }
 
+func stringPow(base string, pow int) string {
+	var bases []string
+	for i := 1; i<= pow; i++ {
+		bases = append(bases, base)
+	}
+	return stringMult(bases)
+}
+
+func factorialString(n int) string {
+	if n < 0 {
+		return "0"
+	} else {
+		var upTo []string
+		for i := 1; i <= n; i++ {
+			upTo = append(upTo, strconv.Itoa(i))
+		}
+		return stringMult(upTo)
+	}
+}
+
 //This is really slow
 func problem12() {
 	var firstIndex int
