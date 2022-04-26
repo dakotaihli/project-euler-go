@@ -22,13 +22,13 @@ func max(a, b int) int {
 }
 
 func maxS(nums []int) int {
-	max := nums[0]
+	maxVal := nums[0]
 	for _, n := range nums {
-		if n > max {
-			max = n
+		if n > maxVal {
+			maxVal = n
 		}
 	}
-	return max
+	return maxVal
 }
 
 func problem1() {
@@ -389,7 +389,7 @@ func stringMult(nums []string) string {
 
 func stringPow(base string, pow int) string {
 	var bases []string
-	for i := 1; i<= pow; i++ {
+	for i := 1; i <= pow; i++ {
 		bases = append(bases, base)
 	}
 	return stringMult(bases)
@@ -462,6 +462,14 @@ func problem15() {
 	fmt.Println("No code necessary. It's a permutation of a multiset, this is basic combinatorics")
 }
 
+func digitSum(s string) string {
+	return stringAdd(strings.Split(s, ""))
+}
+
+func problem16() {
+	fmt.Println(digitSum(stringPow("2", 1000)))
+}
+
 func main() {
-	problem15()
+	problem16()
 }
