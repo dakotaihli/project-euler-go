@@ -356,6 +356,37 @@ func stringAdd(summands []string) string {
 	return out
 }
 
+func binStringMult(s, t string) string {
+	if len(s) < len(t) {
+		s, t = t, s
+	}
+	tSlice := strings.Split(t, "")
+	var auxProds []string
+	for i := 0; i < len(t); i++ {
+		jDig, _ := strconv.Atoi(tSlice[len(t)-(i+1)])
+		sTimesPow := s
+		for z := 0; z < i; z++ {
+			sTimesPow = sTimesPow + "0"
+		}
+		for j := 0; j < jDig; j++ {
+			auxProds = append(auxProds, sTimesPow)
+		}
+	}
+	return stringAdd(auxProds)
+}
+
+func stringMult(nums []string) string {
+	if len(nums) == 0 {
+		return "1"
+	} else {
+		running := nums[0]
+		for i := 1; i < len(nums); i++ {
+			running = binStringMult(running, nums[i])
+		}
+		return running
+	}
+}
+
 //This is really slow
 func problem12() {
 	var firstIndex int
