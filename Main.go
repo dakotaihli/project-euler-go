@@ -118,7 +118,7 @@ func slicesEqual(s, t []int) bool {
 	return out
 }
 
-func reverse(s []int) []int {
+func reverseInt(s []int) []int {
 	out := make([]int, len(s))
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		out[i], out[j] = s[j], s[i]
@@ -139,11 +139,11 @@ func digits(n int) []int {
 	for i := 0; math.Pow10(i) <= float64(n); i++ {
 		outs = append(outs, int(math.Floor(float64(n)/math.Pow10(i)))%10)
 	}
-	return reverse(outs)
+	return reverseInt(outs)
 }
 
 func isPalindrome(n int) bool {
-	return slicesEqual(digits(n), reverse(digits(n)))
+	return slicesEqual(digits(n), reverseInt(digits(n)))
 }
 
 func problem2() {
