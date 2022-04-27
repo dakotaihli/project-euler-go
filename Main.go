@@ -500,6 +500,14 @@ func numberName(n int) string {
 	}
 }
 
+func problem17() {
+	var sum int
+	for i := 1; i <= 1000; i++ {
+		sum += len(strings.ReplaceAll(strings.ReplaceAll(numberName(i), " ", ""), "-", ""))
+	}
+	fmt.Println(sum)
+}
+
 func main() {
-	problem16()
+	problem17()
 }
