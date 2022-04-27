@@ -194,7 +194,9 @@ func problem(n int) {
 		fmt.Println("No code necessary. It's a permutation of a multiset, this is basic combinatorics")
 
 	case n == 16:
-		fmt.Println(digitSum(stringPow("2", 1000)))
+		pow := new(big.Int)
+		pow.Exp(big.NewInt(int64(2)), big.NewInt(int64(1000)), nil)
+		fmt.Println(digitSum(pow.String()))
 
 	case n == 17:
 		var sum int

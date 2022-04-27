@@ -3,7 +3,6 @@ package main
 import (
 	"math"
 	"strconv"
-	"strings"
 )
 
 func min(a, b int) int {
@@ -177,6 +176,7 @@ func triangle(n int) int {
 	return (n * (n + 1)) / 2
 }
 
+/*
 //Need to add error handling if inputs aren't numbers
 func stringAdd(summands []string) string {
 	var reverseSum []int
@@ -245,6 +245,7 @@ func stringPow(base string, pow int) string {
 	}
 	return stringMult(bases)
 }
+*/
 
 func collatz(n int) int {
 	if n%2 == 0 {
@@ -294,5 +295,5 @@ func numberName(n int) string {
 }
 
 func main() {
-	problem(48)
+	problem(16)
 }
