@@ -301,5 +301,5 @@ func numberName(n int) string {
 }
 
 func main() {
-	problem17()
+	problem(17)
 }
