@@ -470,6 +470,36 @@ func problem16() {
 	fmt.Println(digitSum(stringPow("2", 1000)))
 }
 
+//Only works for 1 <= n <= 1000
+func numberName(n int) string {
+	digits := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
+	teens := []string{"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"}
+	tennies := []string{"twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"}
+	if n == 1000 {
+		return "one thousand"
+	} else {
+		var out string
+		nModHund := n % 100
+		if n >= 100 {
+			out = digits[(n/100)-1] + " hundred"
+			if nModHund != 0 {
+				out = out + " and "
+			}
+		}
+		if nModHund/10 == 0 && nModHund != 0 {
+			out = out + digits[(n%10)-1]
+		} else if nModHund/10 == 1 {
+			out = out + teens[n%10]
+		} else if nModHund/10 > 1 {
+			out = out + tennies[(nModHund/10)-2]
+			if n%10 != 0 {
+				out = out + "-" + digits[(n%10)-1]
+			}
+		}
+		return out
+	}
+}
+
 func main() {
 	problem16()
 }
