@@ -246,18 +246,6 @@ func stringPow(base string, pow int) string {
 	return stringMult(bases)
 }
 
-func factorialString(n int) string {
-	if n < 0 {
-		return "0"
-	} else {
-		var upTo []string
-		for i := 1; i <= n; i++ {
-			upTo = append(upTo, strconv.Itoa(i))
-		}
-		return stringMult(upTo)
-	}
-}
-
 func collatz(n int) int {
 	if n%2 == 0 {
 		return n / 2
