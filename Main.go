@@ -254,8 +254,13 @@ func collatz(n int) int {
 	}
 }
 
-func digitSum(s string) string {
-	return stringAdd(strings.Split(s, ""))
+func digitSum(s string) int {
+	var sum int
+	for i := 0; i < len(s); i++ {
+		d, _ := strconv.Atoi(s[i : i+1])
+		sum += d
+	}
+	return sum
 }
 
 //Only works for 1 <= n <= 1000
