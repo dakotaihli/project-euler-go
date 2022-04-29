@@ -205,6 +205,9 @@ func problem(n int) {
 		}
 		fmt.Println(sum)
 
+	case n == 20:
+		fmt.Println(digitSum(bigFact(100).String()))
+
 	case n == 48:
 		sum := new(big.Int)
 		pow := new(big.Int)

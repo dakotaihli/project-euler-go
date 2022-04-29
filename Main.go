@@ -2,6 +2,7 @@ package main
 
 import (
 	"math"
+	"math/big"
 	"strconv"
 )
 
@@ -294,6 +295,22 @@ func numberName(n int) string {
 	}
 }
 
+func bigFactOnBig(z *big.Int) *big.Int {
+	if z.Cmp(big.NewInt(int64(0))) == -1 {
+		return big.NewInt(int64(0))
+	} else {
+		running := big.NewInt(int64(1))
+		for i := big.NewInt(int64(1)); i.Cmp(z) < 1; i.Add(i, big.NewInt(int64(1))) {
+			running.Mul(running, i)
+		}
+		return running
+	}
+}
+
+func bigFact(n int) *big.Int {
+	return bigFactOnBig(big.NewInt(int64(n)))
+}
+
 func main() {
-	problem(16)
+	problem(20)
 }
