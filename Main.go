@@ -311,6 +311,14 @@ func bigFact(n int) *big.Int {
 	return bigFactOnBig(big.NewInt(int64(n)))
 }
 
+func alphValue(s string) int {
+	var sum int
+	for _, l := range s {
+		sum += (int(l) - 64)
+	}
+	return sum
+}
+
 func main() {
-	problem(25)
+	problem(22)
 }

@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"math"
 	"math/big"
+	"os"
+	"sort"
 	"strconv"
 	"strings"
 )
@@ -208,6 +210,19 @@ func problem(n int) {
 
 	case n == 20:
 		fmt.Println(digitSum(bigFact(100).String()))
+
+	case n == 22:
+		dat, err := os.ReadFile("p022_names.txt")
+		if err != nil {
+			panic(err)
+		}
+		var sum int
+		names := strings.Split(strings.ReplaceAll(string(dat), "\"", ""), ",")
+		sort.Strings(names)
+		for i, s := range names {
+			sum += (i + 1) * alphValue(s)
+		}
+		fmt.Println(sum)
 
 	case n == 25:
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
