@@ -265,6 +265,19 @@ func problem(n int) {
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
 		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
 
+	case n == 40:
+		champ := "."
+		for i := 1; len(champ) <= 1000001; i++ {
+			champ = champ + strconv.Itoa(i)
+		}
+		prod := 1
+		for i := 0; i <= 6; i++ {
+			index := int(math.Pow(float64(10), float64(i)))
+			dig, _ := strconv.Atoi(champ[index : index+1])
+			prod *= dig
+		}
+		fmt.Println(prod)
+
 	case n == 48:
 		sum := new(big.Int)
 		pow := new(big.Int)
