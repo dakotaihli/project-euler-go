@@ -194,7 +194,10 @@ func problem(n int) {
 		fmt.Println(indexLongest, lengthLongest)
 
 	case n == 15:
-		fmt.Println("No code necessary. It's a permutation of a multiset, this is basic combinatorics")
+		choose := bigFact(20)
+		choose.Mul(choose, choose)
+		choose.Div(bigFact(40), choose)
+		fmt.Println(choose.String())
 
 	case n == 16:
 		pow := new(big.Int)
