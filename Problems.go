@@ -261,6 +261,9 @@ func problem(n int) {
 		}
 		fmt.Println(sum)
 
+	case n == 24:
+		//Count how many came before
+
 	case n == 25:
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
 		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
@@ -277,19 +280,6 @@ func problem(n int) {
 		facs := []int{1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880}
 		var sum int
 		for n := 10; n <= 2540160; n++ {
-			//This looks really stupid but it runs really fast
-			if n < 362880 && (n%10 == 9 || (n/10)%10 == 9 || (n/100)%10 == 9 || (n/1000)%10 == 9 || (n/10000)%10 == 9) {
-				continue
-			}
-			if n > 241920 && n%10 != 9 && (n/10)%10 != 9 && (n/100)%10 != 9 && (n/1000)%10 != 9 && (n/10000)%10 != 9 && (n/1000000)%10 != 9 && (n/10000000)%10 != 9 {
-				continue
-			}
-			if n < 40320 && (n%10 == 8 || (n/10)%10 == 8 || (n/100)%10 == 8 || (n/1000)%10 == 8) {
-				continue
-			}
-			if n > 25200 && n%10 != 8 && (n/10)%10 != 8 && (n/100)%10 != 8 && (n/1000)%10 != 8 && (n/10000)%10 != 8 && (n/1000000)%10 != 8 && (n/10000000)%10 != 8 {
-				continue
-			}
 			if (n < 100 && facs[n%10]+facs[(n/10)%10] == n) || (n >= 100 && n < 1000 && facs[n%10]+facs[(n/10)%10]+facs[(n/100)%10] == n) || (n >= 1000 && n < 10000 && facs[n%10]+facs[(n/10)%10]+facs[(n/100)%10]+facs[(n/1000)%10] == n) || (n >= 10000 && n < 100000 && facs[n%10]+facs[(n/10)%10]+facs[(n/100)%10]+facs[(n/1000)%10]+facs[(n/10000)%10] == n) || (n >= 100000 && n < 1000000 && facs[n%10]+facs[(n/10)%10]+facs[(n/100)%10]+facs[(n/1000)%10]+facs[(n/10000)%10]+facs[(n/100000)%10] == n) || (n >= 1000000 && facs[n%10]+facs[(n/10)%10]+facs[(n/100)%10]+facs[(n/1000)%10]+facs[(n/10000)%10]+facs[(n/100000)%10]+facs[(n/1000000)%10] == n) {
 				sum += n
 			}
