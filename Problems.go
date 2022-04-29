@@ -211,6 +211,16 @@ func problem(n int) {
 	case n == 20:
 		fmt.Println(digitSum(bigFact(100).String()))
 
+	case n == 21:
+		var sum int
+		for a := 1; a < 10000; a++ {
+			b := sumOfDivisors(a)
+			if a != b && sumOfDivisors(b) == a {
+				sum += a
+			}
+		}
+		fmt.Println(sum)
+
 	case n == 22:
 		dat, err := os.ReadFile("p022_names.txt")
 		if err != nil {

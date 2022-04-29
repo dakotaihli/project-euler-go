@@ -319,6 +319,16 @@ func alphValue(s string) int {
 	return sum
 }
 
+func sumOfDivisors(n int) int {
+	sum := 1
+	for i := 2; i < (n/2)+1; i++ {
+		if n%i == 0 {
+			sum += i
+		}
+	}
+	return sum
+}
+
 func main() {
-	problem(22)
+	problem(21)
 }
