@@ -286,6 +286,16 @@ func problem(n int) {
 		}
 		fmt.Println(sum)
 
+	case n == 36:
+		var sum int
+		for i := 1; i < 1000000; i = i + 2 {
+			bin, _ := strconv.Atoi(strconv.FormatInt(int64(i), 2))
+			if isPalindrome(i) && isPalindrome(bin) {
+				sum += i
+			}
+		}
+		fmt.Println(sum)
+
 	case n == 40:
 		champ := "."
 		for i := 1; len(champ) <= 1000001; i++ {

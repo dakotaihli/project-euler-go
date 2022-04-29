@@ -372,5 +372,5 @@ func tomorrow(y, m, d int) (int, int, int) {
 }
 
 func main() {
-	problem(24)
+	problem(36)
 }
