@@ -329,6 +329,10 @@ func sumOfDivisors(n int) int {
 	return sum
 }
 
+func isAbundant(n int) bool {
+	return sumOfDivisors(n) > n
+}
+
 func isLeap(y int) bool {
 	if y%4 != 0 {
 		return false
@@ -368,5 +372,5 @@ func tomorrow(y, m, d int) (int, int, int) {
 }
 
 func main() {
-	problem(15)
+	problem(23)
 }

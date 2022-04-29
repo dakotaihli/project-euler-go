@@ -247,6 +247,20 @@ func problem(n int) {
 		}
 		fmt.Println(sum)
 
+	case n == 23:
+		//This is a bit slow but not too bad
+		var sum int
+		for i := 2; i <= 28123; i++ {
+			var canBe bool
+			for j := 1; j < i; j++ {
+				canBe = canBe || (isAbundant(j) && isAbundant(i-j))
+			}
+			if !canBe {
+				sum += i
+			}
+		}
+		fmt.Println(sum)
+
 	case n == 25:
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
 		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
