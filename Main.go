@@ -329,6 +329,44 @@ func sumOfDivisors(n int) int {
 	return sum
 }
 
+func isLeap(y int) bool {
+	if y%4 != 0 {
+		return false
+	} else if y%100 == 0 && y%400 != 0 {
+		return false
+	} else {
+		return true
+	}
+}
+
+func isDateBeforeOrSame(ya, ma, da, yb, mb, db int) bool {
+	return (ya < yb) || (ya == yb && ma < mb) || (ya == yb && ma == mb && da <= db)
+}
+
+func tomorrow(y, m, d int) (int, int, int) {
+	if m == 2 {
+		if (isLeap(y) && d == 29) || (!isLeap(y) && d == 28) {
+			return y, 3, 1
+		} else {
+			return y, m, d + 1
+		}
+	} else if m == 4 || m == 6 || m == 9 || m == 11 {
+		if d == 30 {
+			return y, m + 1, 1
+		} else {
+			return y, m, d + 1
+		}
+	} else if m == 12 && d == 31 {
+		return y + 1, 1, 1
+	} else {
+		if d == 31 {
+			return y, m + 1, 1
+		} else {
+			return y, m, d + 1
+		}
+	}
+}
+
 func main() {
-	problem(21)
+	problem(19)
 }

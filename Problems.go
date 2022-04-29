@@ -208,6 +208,16 @@ func problem(n int) {
 		}
 		fmt.Println(sum)
 
+	case n == 19:
+		var count int
+		for y, m, d, dotW := 1900, 1, 1, 1; isDateBeforeOrSame(y, m, d, 2000, 12, 31); y, m, d = tomorrow(y, m, d) {
+			if d == 1 && y >= 1901 && dotW == 0 {
+				count++
+			}
+			dotW = (dotW + 1) % 7
+		}
+		fmt.Println(count)
+
 	case n == 20:
 		fmt.Println(digitSum(bigFact(100).String()))
 
