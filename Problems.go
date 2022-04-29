@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"math/big"
 	"strconv"
 	"strings"
@@ -207,6 +208,10 @@ func problem(n int) {
 
 	case n == 20:
 		fmt.Println(digitSum(bigFact(100).String()))
+
+	case n == 25:
+		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
+		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
 
 	case n == 48:
 		sum := new(big.Int)

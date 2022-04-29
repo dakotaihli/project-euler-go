@@ -312,5 +312,5 @@ func bigFact(n int) *big.Int {
 }
 
 func main() {
-	problem(20)
+	problem(25)
 }
