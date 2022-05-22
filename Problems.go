@@ -288,13 +288,33 @@ func problem(n int) {
 
 	case n == 36:
 		var sum int
-		for i := 1; i < 1000000; i = i + 2 {
+		for i := 1; i < 10000000; i = i + 2 {
 			bin, _ := strconv.Atoi(strconv.FormatInt(int64(i), 2))
 			if isPalindrome(i) && isPalindrome(bin) {
 				sum += i
+				fmt.Println(i, bin)
 			}
 		}
 		fmt.Println(sum)
+
+	case n == 39:
+		trips := make([]int, 1001)
+		for m := 2; m <= 22; m++ {
+			for n := 1; n < m; n++ {
+				if (m+n)%2 == 1 && binGCD(m, n) == 1 {
+					for k := 1; k*m*(m+n) <= 500; k++ {
+						trips[2*k*m*(m+n)]++
+					}
+				}
+			}
+		}
+		var maxTriples, maxIndex int
+		for i, s := range trips {
+			if s > maxTriples {
+				maxIndex, maxTriples = i, s
+			}
+		}
+		fmt.Println("There are", maxTriples, "Pythagorean triples that sum to", maxIndex)
 
 	case n == 40:
 		champ := "."
