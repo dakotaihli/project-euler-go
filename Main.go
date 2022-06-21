@@ -371,6 +371,36 @@ func tomorrow(y, m, d int) (int, int, int) {
 	}
 }
 
+func allPos(in []int) bool {
+	out := true
+	for _, n := range in {
+		out = out && (n > 0)
+	}
+	return out
+}
+
+func coinCombos(coins []int, total int) [][]int {
+	if allPos(coins) && total >= 0 {
+		if total == 0 {
+			emptySoln := make([]int, len(coins))
+			return [][]int{emptySoln}
+		} else if len(coins) == 0 {
+			return make([][]int, 0)
+		} else {
+			outs := make([][]int, 0)
+			for i := 0; i*coins[len(coins)-1] <= total; i++ {
+				partialSols := coinCombos(coins[:len(coins)-1], total-(i*coins[len(coins)-1]))
+				for _, s := range partialSols {
+					outs = append(outs, append(s, i))
+				}
+			}
+			return outs
+		}
+	} else {
+		return nil
+	}
+}
+
 func main() {
-	problem(36)
+	problem(31)
 }

@@ -276,6 +276,10 @@ func problem(n int) {
 		k := (N + 1) / 2
 		fmt.Println(-3 + 2*k - 6*k*k + (8*k*(1+2*k*k))/3)
 
+	case n == 31:
+		britCoins := []int{1, 2, 5, 10, 20, 50, 100, 200}
+		fmt.Println(len(coinCombos(britCoins, 200)))
+
 	case n == 34:
 		facs := []int{1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880}
 		var sum int
