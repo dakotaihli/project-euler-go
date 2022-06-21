@@ -276,6 +276,27 @@ func problem(n int) {
 		k := (N + 1) / 2
 		fmt.Println(-3 + 2*k - 6*k*k + (8*k*(1+2*k*k))/3)
 
+	case n == 29:
+		outs := make([]*big.Int, 0)
+		for a := 2; a <= 100; a++ {
+			for b := 2; b <= 100; b++ {
+				bigA := big.NewInt(int64(a))
+				bigB := big.NewInt(int64(b))
+				c := big.NewInt(int64(0))
+				c.Exp(bigA, bigB, nil)
+				alreadyIn := false
+				for _, x := range outs {
+					//Somehow this bit makes it run really slow
+					//TODO: Find more efficient way to tell if two bigInts are equal
+					alreadyIn = alreadyIn || c.String() == x.String()
+				}
+				if !alreadyIn {
+					outs = append(outs, c)
+				}
+			}
+		}
+		fmt.Println(len(outs))
+
 	case n == 31:
 		britCoins := []int{1, 2, 5, 10, 20, 50, 100, 200}
 		fmt.Println(len(coinCombos(britCoins, 200)))
