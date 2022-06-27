@@ -354,6 +354,22 @@ func problem(n int) {
 		}
 		fmt.Println(prod)
 
+	case n == 42:
+		dat, err := os.ReadFile("p042_words.txt")
+		if err != nil {
+			panic(err)
+		}
+		words := strings.Split(strings.ReplaceAll(string(dat), "\"", ""), ",")
+		triWords := 0
+		for _, s := range words {
+			for i := 1; triangle(i) <= alphValue(s); i++ {
+				if triangle(i) == alphValue(s) {
+					triWords++
+				}
+			}
+		}
+		fmt.Println(triWords)
+
 	case n == 48:
 		sum := new(big.Int)
 		pow := new(big.Int)
