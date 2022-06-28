@@ -268,7 +268,29 @@ func problem(probNum int) {
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
 		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
 
-	case n == 28:
+	case probNum == 27:
+		N := 1000
+		maxConsecPrimes := 40
+		maxPrimesCoeffA, maxPrimesCoeffB := 1, 41
+		for b := -N; b <= N; b++ {
+			if !isPrime(b) {
+				// b is the value when n = 0, so for this to be prime, b must be prime
+				continue
+			}
+			for a := 1 - N; a < N; a++ {
+				consec := 0
+				for n := 0; isPrime((n+a)*n + b); n++ {
+					consec++
+				}
+				if consec > maxConsecPrimes {
+					maxConsecPrimes = consec
+					maxPrimesCoeffA, maxPrimesCoeffB = a, b
+				}
+			}
+		}
+		fmt.Println(maxPrimesCoeffA * maxPrimesCoeffB)
+
+	case probNum == 28:
 		// For k \geq 1, the (2k-1) by (2k-1) spiral can be thought of as layers radiating from 1. (The case k=1 is just the 1 by itself.)
 		//For k \geq 2, the k-th layer is the numbers from (2k-3)^2 + 1 to (2k-1)^2, and the corners --- one of which is (2k-1)^2 --- are (2k-2) apart.
 		//Working this out, the sum of the numbers in each layer is 16k^2 - 28k + 16. For a (2k-1) by (2k-1) spiral, the sum is the middle 1 plus the sum of each layer from 2 to k. Using sum formulas you can reduce this to a cubic polynomial in k.
