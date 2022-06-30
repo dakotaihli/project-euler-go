@@ -108,7 +108,7 @@ func slicesEqual(s, t []int) bool {
 
 func reverseInt(s []int) []int {
 	out := make([]int, len(s))
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+	for i, j := 0, len(s)-1; i <= j; i, j = i+1, j-1 {
 		out[i], out[j] = s[j], s[i]
 	}
 	return out
@@ -116,7 +116,7 @@ func reverseInt(s []int) []int {
 
 func reverseString(s []string) []string {
 	out := make([]string, len(s))
-	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+	for i, j := 0, len(s)-1; i <= j; i, j = i+1, j-1 {
 		out[i], out[j] = s[j], s[i]
 	}
 	return out
@@ -124,8 +124,10 @@ func reverseString(s []string) []string {
 
 func digits(n int) []int {
 	var outs []int
+	nRunning := n
 	for i := 0; math.Pow10(i) <= float64(n); i++ {
-		outs = append(outs, int(math.Floor(float64(n)/math.Pow10(i)))%10)
+		outs = append(outs, nRunning%10)
+		nRunning /= 10
 	}
 	return reverseInt(outs)
 }
