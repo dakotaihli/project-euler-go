@@ -376,6 +376,49 @@ func problem(probNum int) {
 		}
 		fmt.Println(prod)
 
+	case probNum == 41:
+		N := 1000000
+		primesBelow1Mil := primesBelow(N)
+		/* Let M be the largest number such that the first M-many primes (starting at 2)
+		 * add up to at most N. This is a decent upper bound for the desired answer to the
+		 * problem. Indeed, any longer sequence must add up to at least the sum of the
+		 * first M+1 primes, which is strictly above N.
+		 *
+		 * longestPossible is this M.
+		 */
+		longestPossible := 0
+		leastSum := 0
+		for i := 0; leastSum <= N; i++ {
+			leastSum += primesBelow1Mil[i]
+			longestPossible++
+		}
+		var longestSeq []int
+		var biggestPrime int
+		var found bool
+		for l := longestPossible; l >= 21; l-- {
+			for i := 0; i+l <= len(primesBelow1Mil); i++ {
+				if l*primesBelow1Mil[i] > N {
+					continue
+				}
+				sum := 0
+				for _, p := range primesBelow1Mil[i : i+l] {
+					sum += p
+				}
+				if sum < N && isPrime(sum) {
+					found = true
+					longestSeq = primesBelow1Mil[i : i+l]
+					biggestPrime = sum
+					break
+				} else if !isPrime(sum) {
+					fmt.Println("The sum of", l, "consecutive primes starting at", primesBelow1Mil[i], "is", sum, " which is not prime")
+				}
+			}
+			if found {
+				break
+			}
+		}
+		fmt.Println(len(longestSeq), "consecutive primes add to", biggestPrime)
+
 	case probNum == 42:
 		dat, err := os.ReadFile("p042_words.txt")
 		if err != nil {
