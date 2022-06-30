@@ -376,6 +376,18 @@ func problem(probNum int) {
 		}
 		fmt.Println(prod)
 
+	case probNum == 41:
+		var pandigitalPrimes []int
+		firstDigits := []int{1, 2, 3, 4, 5, 6, 7}
+		for n := 1; n < 10000000; n++ {
+			nDigits := digits(n)
+			sort.Ints(nDigits)
+			if slicesEqual(nDigits, firstDigits[:len(nDigits)]) && isPrime(n) {
+				pandigitalPrimes = append(pandigitalPrimes, n)
+			}
+		}
+		fmt.Println(pandigitalPrimes)
+
 	case probNum == 42:
 		dat, err := os.ReadFile("p042_words.txt")
 		if err != nil {
