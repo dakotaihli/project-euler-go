@@ -376,7 +376,34 @@ func problem(probNum int) {
 		}
 		fmt.Println(prod)
 
-	case probNum == 41:
+	case probNum == 42:
+		dat, err := os.ReadFile("p042_words.txt")
+		if err != nil {
+			panic(err)
+		}
+		words := strings.Split(strings.ReplaceAll(string(dat), "\"", ""), ",")
+		triWords := 0
+		for _, s := range words {
+			for i := 1; triangle(i) <= alphValue(s); i++ {
+				if triangle(i) == alphValue(s) {
+					triWords++
+				}
+			}
+		}
+		fmt.Println(triWords)
+
+	case probNum == 48:
+		sum := new(big.Int)
+		pow := new(big.Int)
+		tens := big.NewInt(int64(10000000000))
+		for i := 1; i <= 1000; i++ {
+			pow.Exp(big.NewInt(int64(i)), big.NewInt(int64(i)), tens)
+			sum.Add(sum, pow)
+		}
+		sum.Mod(sum, tens)
+		fmt.Println(sum.String())
+
+	case probNum == 50:
 		N := 1000000
 		primesBelow1Mil := primesBelow(N)
 		/* Let M be the largest number such that the first M-many primes (starting at 2)
@@ -418,33 +445,6 @@ func problem(probNum int) {
 			}
 		}
 		fmt.Println(len(longestSeq), "consecutive primes add to", biggestPrime)
-
-	case probNum == 42:
-		dat, err := os.ReadFile("p042_words.txt")
-		if err != nil {
-			panic(err)
-		}
-		words := strings.Split(strings.ReplaceAll(string(dat), "\"", ""), ",")
-		triWords := 0
-		for _, s := range words {
-			for i := 1; triangle(i) <= alphValue(s); i++ {
-				if triangle(i) == alphValue(s) {
-					triWords++
-				}
-			}
-		}
-		fmt.Println(triWords)
-
-	case probNum == 48:
-		sum := new(big.Int)
-		pow := new(big.Int)
-		tens := big.NewInt(int64(10000000000))
-		for i := 1; i <= 1000; i++ {
-			pow.Exp(big.NewInt(int64(i)), big.NewInt(int64(i)), tens)
-			sum.Add(sum, pow)
-		}
-		sum.Mod(sum, tens)
-		fmt.Println(sum.String())
 
 	default:
 		fmt.Println("Haven't done this problem yet.")
