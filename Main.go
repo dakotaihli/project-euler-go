@@ -132,6 +132,16 @@ func numToDigits(n int) []int {
 	return reverseInt(outs)
 }
 
+func digitsToNum(s []int) int {
+	power := 1
+	var num int
+	for i := 0; i < len(s); i++ {
+		num += s[len(s)-1-i] * power
+		power *= 10
+	}
+	return num
+}
+
 func isPalindrome(n int) bool {
 	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
 }
