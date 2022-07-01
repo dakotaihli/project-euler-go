@@ -380,7 +380,7 @@ func problem(probNum int) {
 		var pandigitalPrimes []int
 		firstDigits := []int{1, 2, 3, 4, 5, 6, 7}
 		for n := 1; n < 10000000; n++ {
-			nDigits := digits(n)
+			nDigits := numToDigits(n)
 			sort.Ints(nDigits)
 			if slicesEqual(nDigits, firstDigits[:len(nDigits)]) && isPrime(n) {
 				pandigitalPrimes = append(pandigitalPrimes, n)

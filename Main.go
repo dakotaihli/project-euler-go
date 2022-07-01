@@ -122,7 +122,7 @@ func reverseString(s []string) []string {
 	return out
 }
 
-func digits(n int) []int {
+func numToDigits(n int) []int {
 	var outs []int
 	nRunning := n
 	for i := 0; math.Pow10(i) <= float64(n); i++ {
@@ -133,7 +133,7 @@ func digits(n int) []int {
 }
 
 func isPalindrome(n int) bool {
-	return slicesEqual(digits(n), reverseInt(digits(n)))
+	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
 }
 
 func binGCD(n, m int) int {
