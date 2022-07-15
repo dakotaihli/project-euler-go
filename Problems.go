@@ -333,6 +333,21 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 35:
+		circPrimes := []int{2, 3, 5, 7}
+		for n := 11; n < 1000000; n++ {
+			isCircPrime := isPrime(n)
+			s := numToDigits(n)
+			for i := 0; i < len(numToDigits(n)); i++ {
+				s = append(s[1:], s[0])
+				isCircPrime = isCircPrime && isPrime(digitsToNum(s))
+			}
+			if isCircPrime {
+				circPrimes = append(circPrimes, n)
+			}
+		}
+		fmt.Println("The", len(circPrimes), "circular primes are", circPrimes)
+
 	case probNum == 36:
 		var sum int
 		for i := 1; i < 10000000; i = i + 2 {
