@@ -268,6 +268,47 @@ func problem(probNum int) {
 		//Use the fact that F_n = floor(1/2 + (phi^n)/sqrt(5)), where phi is the golden ratio
 		fmt.Println((999*math.Log(10) + math.Log(math.Sqrt(5))) / math.Log(math.Phi))
 
+	case probNum == 26:
+		/* Note that for any d \in \N, if 1/d = 0.(a1 a2 \ldots an), then we have 1/d =
+		 * a1 a2 \ldots an / (10^n - 1). Since 2 and 5 are always relatively prime to
+		 * 10^n - 1, multiplying each side by 2 or 5 does not cancel any factors on the
+		 * right hand side, and hence the length of the cycle in the decimal of 2/d and
+		 * 5/d stays the same. But since 2/d = 1/(d/2) and 5/d = 1/(d/5), we may divide
+		 * out all factors of 2 and 5 from d to calculate the length of the cycles. This
+		 * reduces the relevant calculations to those numbers relatively prime to 10.
+		 *
+		 * Then for all such numbers, from 1/d = a1 a2 \ldots an / (10^n - 1) it follows
+		 * that n is simply the least such that d divides 10^n - 1.
+		 */
+		N := 1000
+		var longestD, longestLength int
+		length := make([]int, N)
+		length[0], length[1] = 0, 0
+		for d := 2; d < N; d++ {
+			if d%2 == 0 {
+				length[d] = length[d/2]
+			} else if d%5 == 0 {
+				length[d] = length[d/5]
+			} else {
+				length[d] = 1
+				nines := big.NewInt(int64(9))
+				bigD := big.NewInt(int64(d))
+				mod := big.NewInt(int64(0))
+				mod.Mod(nines, bigD)
+				for int(mod.Int64()) != 0 {
+					length[d]++
+					nines.Add(nines, big.NewInt(int64(1)))
+					nines.Mul(nines, big.NewInt(int64(10)))
+					nines.Sub(nines, big.NewInt(int64(1)))
+					mod.Mod(nines, bigD)
+				}
+			}
+			if length[d] > longestLength {
+				longestD, longestLength = d, length[d]
+			}
+		}
+		fmt.Println("The reciprocal of", longestD, "has a decimal expansion with a cycle of length", longestLength)
+
 	case probNum == 27:
 		N := 1000
 		maxConsecPrimes := 40
