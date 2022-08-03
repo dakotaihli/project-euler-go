@@ -419,6 +419,23 @@ func problem(probNum int) {
 		}
 		fmt.Println(triWords)
 
+	case probNum == 46:
+		for n := 9; true; n += 2 {
+			isGold := false
+			if !isPrime(n) {
+				for i := 1; n > 2*i*i; i++ {
+					if isPrime(n - (2 * i * i)) {
+						isGold = true
+						break
+					}
+				}
+			}
+			if !(isGold || isPrime(n)) {
+				fmt.Println("Smallest counterexample is", n)
+				break
+			}
+		}
+
 	case probNum == 48:
 		sum := new(big.Int)
 		pow := new(big.Int)
