@@ -185,6 +185,16 @@ func divisors(n int) []int {
 	return divs
 }
 
+func nCr(n, r int) int {
+	if r < 0 || r > n || n < 0 {
+		return 0
+	} else if r == 0 || r == n {
+		return 1
+	} else {
+		return nCr(n-1, r) + nCr(n-1, r-1)
+	}
+}
+
 func triangle(n int) int {
 	return (n * (n + 1)) / 2
 }

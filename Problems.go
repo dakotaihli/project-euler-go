@@ -531,6 +531,21 @@ func problem(probNum int) {
 		}
 		fmt.Println(len(longestSeq), "consecutive primes add to", biggestPrime)
 
+	case probNum == 53:
+		N, M := 100, 1000000
+		//There are triangle(n+1)-1 possible values of nCr for n \geq 1
+		//So we count the ones below 1 million and subtract
+		var count int
+		for n := 1; n <= N; n++ {
+			for r := 0; 2*r < n && nCr(n, r) < M; r++ {
+				count += 2 //Counting both nCr and nC(n-r)
+			}
+			if n < 23 && n%2 == 0 {
+				count++ //Counting nC(n/2) for even n
+			}
+		}
+		fmt.Println("There are", triangle(N+1)-1-count, "values above", M)
+
 	default:
 		fmt.Println("Haven't done this problem yet.")
 	}
