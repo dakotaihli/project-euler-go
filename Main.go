@@ -3,6 +3,7 @@ package main
 import (
 	"math"
 	"math/big"
+	"sort"
 	"strconv"
 )
 
@@ -95,15 +96,20 @@ func primesBelow(n int) []int {
 }
 
 func slicesEqual(s, t []int) bool {
-	out := true
+	var out bool
 	if len(s) != len(t) {
 		out = false
 	} else {
+		out = true
 		for i := 0; i < len(s); i++ {
 			out = out && (s[i] == t[i])
 		}
 	}
 	return out
+}
+
+func sortedIntSliceContains(s []int, x int) bool {
+	return x == s[sort.SearchInts(s, x)]
 }
 
 func reverseInt(s []int) []int {
@@ -205,6 +211,14 @@ func pentagonal(n int) int {
 
 func hexagonal(n int) int {
 	return triangle(2*n - 1)
+}
+
+func pairIterate(x, y int) (int, int) {
+	if x == 0 {
+		return y + 1, 0
+	} else {
+		return x - 1, y + 1
+	}
 }
 
 /*

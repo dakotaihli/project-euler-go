@@ -460,6 +460,52 @@ func problem(probNum int) {
 		}
 		fmt.Println(triWords)
 
+	case probNum == 44:
+		/* Suppose we have found k,j such that P_k - P_j and P_k + P_j are both
+		 * pentagonal. Then the desired minimum of all such |P_k' - P_j'| is
+		 * bounded above by |P_k - P_j|. This lets us put an upper bound on the
+		 * values of k' and j' that minimize the desired quantity: the smallest
+		 * distance from P_m to any other pentagonal distance is P_(m-1), and
+		 * we can simply calculate that |P_m - P_(m-1)| = 3m-2. Thus, if we
+		 * choose m such that |P_k - P_j| < 3m-2, we can then simply brute force
+		 * all k',j' <= m to find the minimizing pair.
+		 */
+		pents := []int{1}
+		var maxIndex int
+		var minDist int
+		for k, j := 2, 1; maxIndex == 0; k, j = pairIterate(k, j) {
+			if k == 0 || j == 0 || k <= j {
+				continue
+			}
+			for pents[len(pents)-1] < pentagonal(k)+pentagonal(j) {
+				pents = append(pents, pentagonal(len(pents)+1))
+			}
+			if sortedIntSliceContains(pents, pents[k-1]+pents[j-1]) && sortedIntSliceContains(pents, pents[k-1]-pents[j-1]) {
+				maxIndex = ((k - j) * (k + j)) / 2
+				minDist = pents[k-1] - pents[j-1]
+			}
+		}
+		for pents[len(pents)-1] < 2*pentagonal(maxIndex) {
+			pents = append(pents, pentagonal(len(pents)+1))
+		}
+		fmt.Println(maxIndex, len(pents), minDist)
+		// The following code finds the minimizing pair by brute force.
+		// It's not good since the max index is about 1.8 million.
+		// As it turns out, the pair found by the above code is already the minimizer.
+		// I have no proof of this other than PE accepts the answer.
+		// TODO: find a fast program that verifies this solution is correct.
+		/*		for k := 2; k <= maxIndex; k++ {
+					for j := 1; j < k; j++ {
+						if sortedIntSliceContains(pents, pents[k-1]+pents[j-1]) {
+							if sortedIntSliceContains(pents, pents[k-1]-pents[j-1]) {
+								minDist = min(pents[k-1]-pents[j-1], minDist)
+							}
+						}
+					}
+				}
+				fmt.Println("Among pairs of pentagonal numbers whose sum and difference are also pentagonal,", minDist, "is the smallest distance between them")
+		*/
+	
 	case probNum == 46:
 		for n := 9; true; n += 2 {
 			isGold := false
