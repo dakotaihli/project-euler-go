@@ -592,6 +592,25 @@ func problem(probNum int) {
 		}
 		fmt.Println("There are", triangle(N+1)-1-count, "values above", M)
 
+	case probNum == 293:
+		N := 1000000000
+		var admissibles []int
+		for n := 2; n < N; n += 2 {
+			if isAdmissible(n) {
+				admissibles = append(admissibles, n)
+			}
+		}
+		pseuForts := make(map[int][]int)
+		for _, n := range admissibles {
+			pF := primeAfter(n+1) - n
+			pseuForts[pF] = append(pseuForts[pF], n)
+		}
+		var sum int
+		for pF, _ := range pseuForts {
+			sum += pF
+		}
+		fmt.Println("The sum of distinct pseudo-Fortunate numbers is", sum)
+
 	default:
 		fmt.Println("Haven't done this problem yet.")
 	}

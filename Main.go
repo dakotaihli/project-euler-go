@@ -85,6 +85,31 @@ func primeFactorize(n int) []int {
 	return output
 }
 
+func primeAfter(n int) int {
+	var out int
+	for p := n + 1; p <= 2*n; p++ {
+		if isPrime(p) {
+			out = p
+			break
+		}
+	}
+	return out
+}
+
+func distinctPrimeFactors(n int) []int {
+	var output []int
+	running := n
+	for running != 1 {
+		p := smallestPrime(running)
+		output = append(output, p)
+		for running%p == 0 {
+			running /= p
+		}
+	}
+	return output
+}
+
+// primesBelow returns a sorted slice of ints, consisting of all primes strictly below the input
 func primesBelow(n int) []int {
 	var output []int
 	for i := 2; i < n; i++ {
@@ -443,6 +468,22 @@ func coinCombos(coins []int, total int) [][]int {
 		}
 	} else {
 		return nil
+	}
+}
+
+func isAdmissible(n int) bool {
+	// One checks that n is admissible iff it is at least 2, and its distinct
+	// prime factors form an initial segment of the primes
+	if n%2 != 0 || n < 2 {
+		return false
+	} else {
+		running := n
+		for p := 2; running%p == 0; p = primeAfter(p) {
+			for running%p == 0 {
+				running /= p
+			}
+		}
+		return running == 1
 	}
 }
 
