@@ -199,6 +199,14 @@ func triangle(n int) int {
 	return (n * (n + 1)) / 2
 }
 
+func pentagonal(n int) int {
+	return (n * (3*n - 1)) / 2
+}
+
+func hexagonal(n int) int {
+	return triangle(2*n - 1)
+}
+
 /*
 //Need to add error handling if inputs aren't numbers
 func stringAdd(summands []string) string {
