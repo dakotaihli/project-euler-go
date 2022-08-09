@@ -246,6 +246,21 @@ func pairIterate(x, y int) (int, int) {
 	}
 }
 
+// Used for Problems 18 and 67
+func trianglePathReduce(tri [][]int) ([][]int, error) {
+	for i, l := range tri {
+		if len(l) != i+1 {
+			return tri, errors.New("triangle is incorrectly formatted")
+		}
+	}
+	var newTri [][]int = tri[:len(tri)-2]
+	newLev := make([]int, len(tri)-1)
+	for i := 0; i < len(newLev); i++ {
+		newLev[i] = tri[len(tri)-2][i] + max(tri[len(tri)-1][i], tri[len(tri)-1][i+1])
+	}
+	return append(newTri, newLev), nil
+}
+
 /*
 //Need to add error handling if inputs aren't numbers
 func stringAdd(summands []string) string {

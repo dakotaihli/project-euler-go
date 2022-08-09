@@ -211,6 +211,43 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 18 || probNum == 67:
+		/* Consider a path down the triangle. If one wished to maximize the
+		 * sum along the path, the choice at the last level is easy --- just
+		 * the maximum of the left or right choices. Since at the penultimate
+		 * level, one knows which option to take, we can replace that row
+		 * by adding each cell with the maximum of its two children. The max
+		 * sum of the resulting triangle is the same as the original.
+		 * If n is the number of rows of the triangle, the operation of
+		 * reducing in this way is O(n) (since n is also the number of items
+		 * in the last level). Reducing down to a single row gives the maximum
+		 * sum, and is O(n + (n-1) + ... + 2 + 1) = O(n^2).
+		 */
+		var filename string
+		if probNum == 67 {
+			filename = "p067_triangle.txt"
+		} else {
+			filename = "p018_triangle.txt"
+		}
+		dat, err := os.ReadFile(filename)
+		if err != nil {
+			panic(err)
+		}
+		var levels []string = strings.Split(string(dat), "\n")
+		triStr := make([][]string, len(levels))
+		tri := make([][]int, len(levels))
+		for i := 0; i < len(levels); i++ {
+			triStr[i] = strings.Split(levels[i], " ")
+			tri[i] = make([]int, i+1)
+			for j := 0; j <= i; j++ {
+				tri[i][j], _ = strconv.Atoi(triStr[i][j])
+			}
+		}
+		for len(tri) > 1 {
+			tri, _ = trianglePathReduce(tri)
+		}
+		fmt.Println("The maximum path sum is", tri[0][0])
+
 	case probNum == 19:
 		var count int
 		for y, m, d, dotW := 1900, 1, 1, 1; isDateBeforeOrSame(y, m, d, 2000, 12, 31); y, m, d = tomorrow(y, m, d) {
