@@ -592,6 +592,17 @@ func problem(probNum int) {
 		}
 		fmt.Println("There are", triangle(N+1)-1-count, "values above", M)
 
+	case probNum == 63:
+		var nums [][]int
+		for n := 1; n <= 22; n++ {
+			for i := 1; int(float64(n)*math.Log10(float64(i))) <= n-1; i++ {
+				if int(float64(n)*math.Log10(float64(i))) == n-1 {
+					nums = append(nums, []int{i, n})
+				}
+			}
+		}
+		fmt.Println(len(nums))
+
 	case probNum == 293:
 		N := 1000000000
 		var admissibles []int
