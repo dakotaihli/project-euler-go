@@ -1,7 +1,7 @@
 package main
 
 import (
-	"math"
+	"errors"
 	"math/big"
 	"sort"
 	"strconv"
@@ -19,6 +19,16 @@ func max(a, b int) int {
 		return a
 	}
 	return b
+}
+
+func intPow(x, n int) int {
+	if n <= 0 {
+		return 1
+	} else if n == 1 {
+		return x
+	} else {
+		return x * intPow(x, n-1)
+	}
 }
 
 func maxS(nums []int) int {
@@ -156,7 +166,7 @@ func reverseString(s []string) []string {
 func numToDigits(n int) []int {
 	var outs []int
 	nRunning := n
-	for i := 0; math.Pow10(i) <= float64(n); i++ {
+	for i := 0; intPow(10, i) <= n; i++ {
 		outs = append(outs, nRunning%10)
 		nRunning /= 10
 	}

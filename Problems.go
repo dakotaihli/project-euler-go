@@ -397,6 +397,28 @@ func problem(probNum int) {
 		}
 		fmt.Println(len(outs))
 
+	case probNum == 30:
+		/* The largest that the sum of n-th powers can be is m*9^n, where
+		 * m is the number of digits. Since 6*9^5 is only six digits, we
+		 * know any of the desired numbers must have at most six digits.
+		 * The problem also tells us to exclude the case 1 = 1^5, which
+		 * would otherwise be the only one-digit solution. So we can bound
+		 * our search by 10 <= N <= 6*9^5 = 354294
+		 */
+		uBound := 6 * intPow(9, 5)
+		var sum int
+		for N := 10; N <= uBound; N++ {
+			digs := numToDigits(N)
+			var digPowSum int
+			for _, x := range digs {
+				digPowSum += intPow(x, 5)
+			}
+			if digPowSum == N {
+				sum += N
+			}
+		}
+		fmt.Println("The sum of numbers that equal the fifth powers of their digits is", sum)
+
 	case probNum == 31:
 		britCoins := []int{1, 2, 5, 10, 20, 50, 100, 200}
 		fmt.Println(len(coinCombos(britCoins, 200)))
@@ -463,7 +485,7 @@ func problem(probNum int) {
 		}
 		prod := 1
 		for i := 0; i <= 6; i++ {
-			index := int(math.Pow(float64(10), float64(i)))
+			index := intPow(10, i)
 			dig, _ := strconv.Atoi(champ[index : index+1])
 			prod *= dig
 		}
