@@ -423,6 +423,57 @@ func problem(probNum int) {
 		britCoins := []int{1, 2, 5, 10, 20, 50, 100, 200}
 		fmt.Println(len(coinCombos(britCoins, 200)))
 
+	case probNum == 32:
+		/* Without loss of generality, suppose the multiplier (the second
+		 * number) is smaller than the multiplicand (the first number).
+		 * The numbers of digits of the multiplier, multiplicand, and
+		 * product must add to 9. This will provide the necessary bounds
+		 * on our search
+		 * If the multiplier (hence also the multiplicand) are three digits
+		 * then the smallest that their product can be is 100*100 = 10000
+		 * which makes a total of 3+3+5 = 11. Therefore, the multiplier
+		 * must have at most two digits.
+		 * If the multiplier has a single digit, and the multiplicand has
+		 * three, then the largest the product can be is 9*999 = 8991 which
+		 * makes a total of 3+1+4 = 8. Therefore, the multiplicand must
+		 * have at least four digits whenever the multiplier has one.
+		 * Indeed, it must have exactly four since the product must be
+		 * larger, which means the only solutions must have 4+1+4 digits.
+		 * If instead the multiplier has two digits, the multiplicand must
+		 * have exactly three by similar reasoning.
+		 * Furthermore, neither multiplier nor multiplcand may have a 1
+		 * in the ones place, since then the ones digit of the other number
+		 * will match the ones digit in the product, so the identity will
+		 * not be pandigital.
+		 * Similarly, no number may contain a 0.
+		 */
+		allDigits := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+		var solns [][]int
+		for j := 2; j < 100; j++ {
+			if j%10 == 0 || j%10 == 1 {
+				continue
+			}
+			for i := 112; i*j < 10000; i++ {
+				if i%10 == 0 || i%10 == 1 || (j < 10 && i < 1112) {
+					continue
+				}
+				digits := append(append(numToDigits(i), numToDigits(j)...), numToDigits(i*j)...)
+				sort.Ints(digits)
+				if slicesEqual(digits, allDigits) {
+					solns = append(solns, []int{i, j, i * j})
+				}
+			}
+		}
+		m := make(map[int]int)
+		for _, s := range solns {
+			m[s[2]]++
+		}
+		var sum int
+		for x, _ := range m {
+			sum += x
+		}
+		fmt.Println(sum)
+
 	case probNum == 34:
 		facs := []int{1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880}
 		var sum int
