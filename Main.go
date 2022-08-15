@@ -183,8 +183,16 @@ func digitsToNum(s []int) int {
 	return num
 }
 
-func isPalindrome(n int) bool {
+func isPalindromeInt(n int) bool {
 	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
+}
+
+func isPalindromeString(s string) bool {
+	isPal := true
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		isPal = isPal && s[i] == s[j]
+	}
+	return isPal
 }
 
 func binGCD(n, m int) int {

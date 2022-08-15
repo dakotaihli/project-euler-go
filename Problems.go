@@ -41,7 +41,7 @@ func problem(probNum int) {
 		var found bool
 		for i := 0; i < 1998 && !found; i++ {
 			for j := 0; j <= i; j++ {
-				if isPalindrome((999 - j) * (999 - (i - j))) {
+				if isPalindromeInt((999 - j) * (999 - (i - j))) {
 					found = true
 					fmt.Println(999-j, 999-(i-j), (999-j)*(999-(i-j)))
 					break
@@ -501,11 +501,15 @@ func problem(probNum int) {
 
 	case probNum == 36:
 		var sum int
-		for i := 1; i < 10000000; i = i + 2 {
-			bin, _ := strconv.Atoi(strconv.FormatInt(int64(i), 2))
-			if isPalindrome(i) && isPalindrome(bin) {
+		N := 1000000
+		for i := 1; i < N; i += 2 {
+			//Only need to check odd i, since leading 0's don't count
+			if !isPalindromeInt(i) {
+				continue
+			}
+			binStr := strconv.FormatInt(int64(i), 2)
+			if isPalindromeString(binStr) {
 				sum += i
-				fmt.Println(i, bin)
 			}
 		}
 		fmt.Println(sum)
