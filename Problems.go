@@ -710,6 +710,23 @@ func problem(probNum int) {
 		}
 		fmt.Println(len(longestSeq), "consecutive primes add to", biggestPrime)
 
+	case probNum == 52:
+		for i := 1; true; i++ {
+			isGood := true
+			numDigs := numToDigits(i)
+			sort.Ints(numDigs)
+			for n := 2; n <= 6 && isGood; n++ {
+				mulDigs := numToDigits(n * i)
+				sort.Ints(mulDigs)
+				isGood = isGood && slicesEqual(numDigs, mulDigs)
+			}
+			if isGood {
+				fmt.Println(i, "is good")
+				break
+			}
+		}
+		//TODO: The answer to 52 is 142857, which is 999999/7. Investigate?
+
 	case probNum == 53:
 		N, M := 100, 1000000
 		//There are triangle(n+1)-1 possible values of nCr for n \geq 1
