@@ -619,7 +619,26 @@ func problem(probNum int) {
 				}
 				fmt.Println("Among pairs of pentagonal numbers whose sum and difference are also pentagonal,", minDist, "is the smallest distance between them")
 		*/
-	
+
+	case probNum == 45:
+		/* Observe that H_n = T_(2n-1) for all n. Thus, it suffices to find the
+		 * next hexagonal number which is also pentagonal.
+		 * Calculation shows that any solution to T_n = P_m is given by m =
+		 * (1+sqrt(48n^2 - 24n + 1))/6, which is bounded below by the easier
+		 * sqrt((4/3)n^2 - (2/3)n). Thus we only need to check a couple m's
+		 * per n.
+		 */
+		for n := 144; true; n++ {
+			var isPentag bool
+			for m := int(math.Floor((math.Sqrt((4.0/3.0)*math.Pow(float64(n), 2) - (2.0/3.0)*float64(n))))); pentagonal(m) <= hexagonal(n); m++ {
+				isPentag = pentagonal(m) == hexagonal(n)
+			}
+			if isPentag {
+				fmt.Println("Next hexagonal which is pentagonal is H_", n, "=", hexagonal(n))
+				break
+			}
+		}
+
 	case probNum == 46:
 		for n := 9; true; n += 2 {
 			isGold := false
