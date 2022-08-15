@@ -517,6 +517,31 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 37:
+		var truncs []int
+		var sum int
+		//Use the given fact that there are 11 solutions to bound search
+		for n := 11; len(truncs) < 11 && n < 1000000; n++ {
+			if !isPrime(n) {
+				continue
+			}
+			leftTrunc, rightTrunc := true, true
+			for m := n / 10; m != 0; m /= 10 {
+				rightTrunc = rightTrunc && isPrime(m)
+			}
+			for k, i := n%10, 1; intPow(10, i) <= n; k, i = n%intPow(10, i+1), i+1 {
+				leftTrunc = leftTrunc && isPrime(k)
+			}
+			if leftTrunc && rightTrunc {
+				truncs = append(truncs, n)
+			}
+		}
+		fmt.Println(truncs)
+		for _, n := range truncs {
+			sum += n
+		}
+		fmt.Println(sum)
+
 	case probNum == 39:
 		trips := make([]int, 1001)
 		for m := 2; m <= 22; m++ {
