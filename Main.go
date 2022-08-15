@@ -96,14 +96,12 @@ func primeFactorize(n int) []int {
 }
 
 func primeAfter(n int) int {
-	var out int
 	for p := n + 1; p <= 2*n; p++ {
 		if isPrime(p) {
-			out = p
-			break
+			return p
 		}
 	}
-	return out
+	return 0 //This will never happen since there is always a prime between n and 2n
 }
 
 func distinctPrimeFactors(n int) []int {
