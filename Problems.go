@@ -477,6 +477,28 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 33:
+		var sols [][]int
+		for x := 1; x < 10; x++ {
+			for y := x + 1; y < 10; y++ {
+				for a := 1; a < 10; a++ {
+					if (10*a+x)*y == (10*y+a)*x {
+						sols = append(sols, []int{10*a + x, 10*y + a})
+					}
+					if (10*x+a)*y == (10*a+y)*x {
+						sols = append(sols, []int{10*x + a, 10*a + y})
+					}
+				}
+			}
+		}
+		fmt.Println(sols)
+		num, denom := 1, 1
+		for _, s := range sols {
+			num *= s[0]
+			denom *= s[1]
+		}
+		fmt.Println(denom / binGCD(num, denom))
+
 	case probNum == 34:
 		facs := []int{1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880}
 		var sum int
