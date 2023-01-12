@@ -181,6 +181,13 @@ func digitsToNum(s []int) int {
 	return num
 }
 
+func areNumsPerms(n, m int) bool {
+	nDigs, mDigs := numToDigits(n), numToDigits(m)
+	sort.Ints(nDigs)
+	sort.Ints(mDigs)
+	return slicesEqual(nDigs, mDigs)
+}
+
 func isPalindromeInt(n int) bool {
 	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
 }
@@ -519,5 +526,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(31)
+	problem(49)
 }

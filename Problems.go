@@ -717,6 +717,19 @@ func problem(probNum int) {
 		sum.Mod(sum, tens)
 		fmt.Println(sum.String())
 
+	case probNum == 49:
+		var sols [][]int
+		for N := 1000; N < 10000 && len(sols) < 2; N++ {
+			if isPrime(N) {
+				for d := 2; N+(2*d) < 10000; d += 2 {
+					if isPrime(N+d) && isPrime(N+(2*d)) && areNumsPerms(N, N+d) && areNumsPerms(N, N+(2*d)) {
+						sols = append(sols, []int{N, d})
+					}
+				}
+			}
+		}
+		fmt.Println(sols)
+
 	case probNum == 50:
 		N := 1000000
 		primesBelow1Mil := primesBelow(N)
