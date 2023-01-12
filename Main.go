@@ -51,7 +51,7 @@ func fibonacci(n int) int {
 	}
 }
 
-//isPrime returns whether |n| is prime
+// isPrime returns whether |n| is prime
 func isPrime(n int) bool {
 	if n < 0 {
 		n *= -1
@@ -372,7 +372,7 @@ func digitSum(s string) int {
 	return sum
 }
 
-//Only works for 1 <= n <= 1000
+// Only works for 1 <= n <= 1000
 func numberName(n int) string {
 	digits := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"}
 	teens := []string{"ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"}
