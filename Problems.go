@@ -930,6 +930,32 @@ func problem(probNum int) {
 		}
 		fmt.Println(len(nums))
 
+	case probNum == 65:
+		/* As pointed out on Wikipedia, given a continued fraction
+		 * [a0; a1, a2, ...], the numerators h(n) and denominators k(n)
+		 * satisfy the recurrence relation h(n) = a(n)*h(n-1) + h(n-2)
+		 * and k(n) = a(n)*k(n-1) + k(n-2). Moreover, the fraction
+		 * h(n)/k(n) is already in lowest terms (i.e. gcd(h(n),k(n))
+		 * = 1). As seed values, we take h(0) = a(0), h(1) = a(0)a(1) + 1,
+		 * k(0) = 1, and k(1) = a(1).
+		 * Also, what Wikipedia calls the 0th convergent, PE calls the
+		 * 1st convergent, so try to avoid off-by-one errors
+		 */
+		h := make([]big.Int, 100)
+		h[0].SetInt64(int64(2))
+		h[1].SetInt64(int64(3))
+		for n := 2; n <= 99; n++ {
+			an := big.NewInt(int64(1))
+			if n%3 == 2 {
+				an.SetInt64(int64((2 * (n + 1)) / 3))
+			}
+			h[n].Mul(an, &h[n-1])
+			h[n].Add(&h[n], &h[n-2])
+		}
+		fmt.Println("10th cvgt:", h[9].String())
+		fmt.Println("100th cvgt:", h[99].String())
+		fmt.Println("Digit sum:", digitSum(h[99].String()))
+
 	case probNum == 293:
 		N := 1000000000
 		var admissibles []int
