@@ -660,6 +660,76 @@ func problem(probNum int) {
 		}
 		fmt.Println(triWords)
 
+	case probNum == 43:
+		// The indents make this code miserable to read. Is there a better way?
+		digs := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+		var sols []int
+		for i1, d1 := range digs {
+			//if d1 == 0 {
+			if false {
+				continue
+			} else {
+				digsLess1 := removeSliceElt(digs, i1)
+				for i2, d2 := range digsLess1 {
+					digsLess2 := removeSliceElt(digsLess1, i2)
+					for i3, d3 := range digsLess2 {
+						digsLess3 := removeSliceElt(digsLess2, i3)
+						for i4, d4 := range digsLess3 {
+							if d4%2 != 0 {
+								continue
+							} else {
+								digsLess4 := removeSliceElt(digsLess3, i4)
+								for i5, d5 := range digsLess4 {
+									if (d3+d4+d5)%3 != 0 {
+										continue
+									} else {
+										digsLess5 := removeSliceElt(digsLess4, i5)
+										for i6, d6 := range digsLess5 {
+											if d6%5 != 0 {
+												continue
+											} else {
+												digsLess6 := removeSliceElt(digsLess5, i6)
+												for i7, d7 := range digsLess6 {
+													if ((100*d5)+(10*d6)+d7)%7 != 0 {
+														continue
+													} else {
+														digsLess7 := removeSliceElt(digsLess6, i7)
+														for i8, d8 := range digsLess7 {
+															if d6+d8-d7%11 != 0 {
+																continue
+															} else {
+																digsLess8 := removeSliceElt(digsLess7, i8)
+																for i9, d9 := range digsLess8 {
+																	if ((100*d7)+(10*d8)+d9)%13 != 0 {
+																		continue
+																	} else {
+																		d10 := digsLess8[1-i9] // There should only be one more now
+																		if ((100*d8)+(10*d9)+d10)%17 == 0 {
+																			sols = append(sols, digitsToNum([]int{d1, d2, d3, d4, d5, d6, d7, d8, d9, d10}))
+																		}
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		fmt.Println(sols)
+		var sum int
+		for _, x := range sols {
+			sum += x
+		}
+		fmt.Println("Sum is", sum)
+
 	case probNum == 44:
 		/* Suppose we have found k,j such that P_k - P_j and P_k + P_j are both
 		 * pentagonal. Then the desired minimum of all such |P_k' - P_j'| is

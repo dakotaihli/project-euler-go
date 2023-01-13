@@ -188,6 +188,38 @@ func areNumsPerms(n, m int) bool {
 	return slicesEqual(nDigs, mDigs)
 }
 
+func removeSliceElt(s []int, i int) []int {
+	if (i < 0) || i >= len(s) {
+		return s
+	} else {
+		out := make([]int, len(s)-1)
+		for j := 0; j < len(out); j++ {
+			if j < i {
+				out[j] = s[j]
+			} else {
+				out[j] = s[j+1]
+			}
+		}
+		return out
+	}
+}
+
+func intPerms(s []int) [][]int {
+	var out [][]int
+	if len(s) == 0 {
+		return [][]int{nil}
+	} else {
+		for i, x := range s {
+			sLess := removeSliceElt(s, i)
+			t := intPerms(sLess)
+			for _, y := range t {
+				out = append(out, append(y, x))
+			}
+		}
+		return out
+	}
+}
+
 func isPalindromeInt(n int) bool {
 	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
 }
@@ -526,5 +558,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(38)
+	problem(43)
 }
