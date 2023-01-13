@@ -220,6 +220,20 @@ func intPerms(s []int) [][]int {
 	}
 }
 
+func intSliceDistinctElts(s []int) []int {
+	var out []int
+	for _, x := range s {
+		var contains bool
+		for _, y := range out {
+			contains = contains || (x == y)
+		}
+		if !contains {
+			out = append(out, x)
+		}
+	}
+	return out
+}
+
 func isPalindromeInt(n int) bool {
 	return slicesEqual(numToDigits(n), reverseInt(numToDigits(n)))
 }
