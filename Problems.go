@@ -564,6 +564,42 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 38:
+		/* Each value of n restricts the allowable sequence of digit-lengths,
+		 * since the lengths of x, ..., nx have to add to 9. Also, note that
+		 * the digits of x are the first digits of the concatenated product,
+		 * which will help us restrict the search. Thus, we separate into
+		 * cases for each value of n:
+		 *
+		 * If n >= 5, the only allowable digit lengths force x to be single-
+		 * digit, but then the given example of 918273645 is the only
+		 * solution with x = 9 (and hence the largest among n >=5 solutions).
+		 *
+		 * If n = 4, the only allowable digit lengths for x,2x,3x,4x must be
+		 * 2,2,2,3 since 4x can have at most one more digit than x. But then
+		 * if x is a 2-digit number such that 3x also has 2 digits, we have
+		 * 10 <= x <= 33. In particular, the first digit of x (and hence the
+		 * concatenated product also) must be 1, 2, or 3, making it smaller
+		 * than the given solution of 918273645. Thus, we can ignore n = 4.
+		 *
+		 * If n = 3, by similar reasoning we must have x, 2x, and 3x are all
+		 * 3-digit numbers. Then we must have 100 <= x <= 333, so any
+		 * solution would also be less than the one given in the problem.
+		 *
+		 * Finally, if n = 2, then x has 4 digits and 2x has 5. Thus, 5000
+		 * <= x <= 9999. But since we are looking for a solution larger
+		 * than 918273645, and the result must be pandigital, we can further
+		 * restrict the search to 9182 <= x <= 9876. Moreover, the pandigital
+		 * product must be of the form 100002 * x.
+		 */
+		var sols []int
+		for x := 9182; x <= 9876; x++ {
+			if areNumsPerms(123456789, 100002*x) {
+				sols = append(sols, 100002*x)
+			}
+		}
+		fmt.Println(sols)
+
 	case probNum == 39:
 		trips := make([]int, 1001)
 		for m := 2; m <= 22; m++ {
