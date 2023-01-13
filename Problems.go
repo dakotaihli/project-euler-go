@@ -812,6 +812,14 @@ func problem(probNum int) {
 			}
 		}
 
+	case probNum == 47:
+		for N := 2; true; N++ {
+			if len(distinctPrimeFactors(N)) == 4 && len(distinctPrimeFactors(N+1)) == 4 && len(distinctPrimeFactors(N+2)) == 4 && len(distinctPrimeFactors(N+3)) == 4 {
+				fmt.Println(N, N+1, N+2, N+3)
+				break
+			}
+		}
+
 	case probNum == 48:
 		sum := new(big.Int)
 		pow := new(big.Int)
