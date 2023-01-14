@@ -956,6 +956,35 @@ func problem(probNum int) {
 		fmt.Println("100th cvgt:", h[99].String())
 		fmt.Println("Digit sum:", digitSum(h[99].String()))
 
+	case probNum == 92:
+		N := 10000000
+		var count int
+		chainLengths := map[int]int{
+			1:  1,
+			89: 89,
+		}
+		for n := 2; n < N; n++ {
+			place := n
+			_, ok := chainLengths[place]
+			for !ok {
+				digits := numToDigits(place)
+				var sum int
+				for _, x := range digits {
+					sum += x * x
+				}
+				place = sum
+				_, ok = chainLengths[place]
+			}
+			// Cache whether n ends at 1 or 89, if n small enough
+			if n < 250 {
+				chainLengths[n] = chainLengths[place]
+			}
+			if chainLengths[place] == 89 {
+				count++
+			}
+		}
+		fmt.Println(count)
+
 	case probNum == 293:
 		N := 1000000000
 		var admissibles []int
