@@ -919,6 +919,67 @@ func problem(probNum int) {
 		}
 		fmt.Println("There are", triangle(N+1)-1-count, "values above", M)
 
+	case probNum == 59:
+		dat, _ := os.ReadFile("p059_cipher.txt")
+		cipher := strings.Split(string(dat), ",")
+		cipherInts := make([]int, len(cipher))
+		for i, x := range cipher {
+			if s, err := strconv.Atoi(x); err == nil {
+				cipherInts[i] = s
+			}
+		}
+		/* We expect the decrypted message to contain numbers in
+		 * English, so we run through all keys and record the ones
+		 * that contain "one", "two", etc.
+		 *
+		 * We set a list of target words, and only record those
+		 * for which the number of occurences is above a set
+		 * threshold
+		 */
+		candidateScore := make(map[string]int)
+		threshold := 180
+		messages := make(map[string]string)
+		decryptedSum := make(map[string]int)
+		targetWords := []string{"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", " ", "the"}
+		targetWordsInt := make([][]int, len(targetWords))
+		for i, s := range targetWords {
+			targetWordsInt[i] = stringToASCII(s)
+		}
+		for i := 97; i <= 122; i++ {
+			for j := 97; j <= 122; j++ {
+				for k := 97; k <= 122; k++ {
+					key := []int{i, j, k}
+					keyString := string(i) + string(j) + string(k)
+					decrypted := make([]int, len(cipherInts))
+					for l, x := range cipherInts {
+						decrypted[l] = x ^ key[l%3]
+					}
+					for _, s := range targetWordsInt {
+						n := len(s)
+						for p := 0; p+n <= len(decrypted); p++ {
+							if slicesEqual(s, decrypted[p:p+n]) {
+								candidateScore[keyString]++
+							}
+
+						}
+					}
+					if candidateScore[keyString] >= threshold {
+						for l := 0; l < len(decrypted); l++ {
+							messages[keyString] = messages[keyString] + string(decrypted[l])
+							decryptedSum[keyString] += decrypted[l]
+						}
+					}
+				}
+			}
+		}
+		//fmt.Println(messages)
+		/* From inspection of the above results, the only code giving
+		 * coherent results is exp, so we print this one alone:
+		 */
+		fmt.Println("Decrypted message:")
+		fmt.Println(messages["exp"])
+		fmt.Println("Sum of ASCII codes:", decryptedSum["exp"])
+
 	case probNum == 63:
 		var nums [][]int
 		for n := 1; n <= 22; n++ {

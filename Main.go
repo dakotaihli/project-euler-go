@@ -464,6 +464,14 @@ func bigFact(n int) *big.Int {
 	return bigFactOnBig(big.NewInt(int64(n)))
 }
 
+func stringToASCII(s string) []int {
+	out := make([]int, len(s))
+	for i, c := range s {
+		out[i] = int(c)
+	}
+	return out
+}
+
 // alphValue is used for problems 22 and 42
 func alphValue(s string) int {
 	var sum int
@@ -572,5 +580,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(92)
+	problem(59)
 }
