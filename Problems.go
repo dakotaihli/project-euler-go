@@ -943,6 +943,20 @@ func problem(probNum int) {
 		}
 		fmt.Println(lychrels, "(There are", len(lychrels), "of them)")
 
+	case probNum == 56:
+		var maxSum int
+		for a := 2; a < 100; a++ {
+			for b := 1; b < 100; b++ {
+				aBig, bBig := big.NewInt(int64(a)), big.NewInt(int64(b))
+				p := new(big.Int)
+				p.Exp(aBig, bBig, nil)
+				if digitSum(p.String()) > maxSum {
+					maxSum = digitSum(p.String())
+				}
+			}
+		}
+		fmt.Println("Largest digit sum =", maxSum)
+
 	case probNum == 59:
 		dat, _ := os.ReadFile("p059_cipher.txt")
 		cipher := strings.Split(string(dat), ",")
