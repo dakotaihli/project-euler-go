@@ -972,6 +972,37 @@ func problem(probNum int) {
 		}
 		fmt.Println(count)
 
+	case probNum == 58:
+		/* Note that the SE diagonal consists of the odd squares,
+		 * the NW diagona consists of the even squares plus one,
+		 * and the SW and NE diagonals consist of the averages of
+		 * the consecutive members of the SE and NW diagonals.
+		 * Crunching these facts, going from the (2n-1)x(2n-1)
+		 * square to the (2n+1)x(2n+1) square adds the numbers
+		 * 4n^2 - 2n + 1, 4n^2 + 1, 4n^2 + 2n + 1, and (2n+1)^2.
+		 */
+		// Initalize for a 3x3 square
+		numbersInDiags := []int{1, 3, 5, 7, 9}
+		primesInDiags := []int{3, 5, 7}
+		n := 2
+		for len(numbersInDiags) <= 10*len(primesInDiags) {
+			numbersInDiags = append(numbersInDiags, 4*n*n-2*n+1)
+			if isPrime(4*n*n - 2*n + 1) {
+				primesInDiags = append(primesInDiags, 4*n*n-2*n+1)
+			}
+			numbersInDiags = append(numbersInDiags, 4*n*n+1)
+			if isPrime(4*n*n + 1) {
+				primesInDiags = append(primesInDiags, 4*n*n+1)
+			}
+			numbersInDiags = append(numbersInDiags, 4*n*n+2*n+1)
+			if isPrime(4*n*n + 2*n + 1) {
+				primesInDiags = append(primesInDiags, 4*n*n+2*n+1)
+			}
+			numbersInDiags = append(numbersInDiags, (2*n+1)*(2*n+1))
+			n += 1
+		}
+		fmt.Println(2*n - 1)
+
 	case probNum == 59:
 		dat, _ := os.ReadFile("p059_cipher.txt")
 		cipher := strings.Split(string(dat), ",")
