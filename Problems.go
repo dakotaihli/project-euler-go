@@ -957,6 +957,21 @@ func problem(probNum int) {
 		}
 		fmt.Println("Largest digit sum =", maxSum)
 
+	case probNum == 57:
+		var count int
+		N := 1000
+		h, hm := big.NewInt(int64(7)), big.NewInt(int64(3))
+		k, km := big.NewInt(int64(5)), big.NewInt(int64(2))
+		for n := 3; n <= N; n++ {
+			p, q := new(big.Int), new(big.Int)
+			h, hm = p.Add(p.Add(h, h), hm), h
+			k, km = q.Add(q.Add(k, k), km), k
+			if len(h.String()) > len(k.String()) {
+				count++
+			}
+		}
+		fmt.Println(count)
+
 	case probNum == 59:
 		dat, _ := os.ReadFile("p059_cipher.txt")
 		cipher := strings.Split(string(dat), ",")
