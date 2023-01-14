@@ -145,6 +145,14 @@ func sortedIntSliceContains(s []int, x int) bool {
 	return x == s[sort.SearchInts(s, x)]
 }
 
+func reverse(s string) string {
+	t := []rune(s)
+	for i, j := 0, len(t)-1; i <= j; i, j = i+1, j-1 {
+		t[i], t[j] = t[j], t[i]
+	}
+	return string(t)
+}
+
 func reverseInt(s []int) []int {
 	out := make([]int, len(s))
 	for i, j := 0, len(s)-1; i <= j; i, j = i+1, j-1 {
@@ -580,5 +588,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(59)
+	problem(55)
 }

@@ -919,6 +919,30 @@ func problem(probNum int) {
 		}
 		fmt.Println("There are", triangle(N+1)-1-count, "values above", M)
 
+	case probNum == 55:
+		/* One may wonder whether single-digit numbers are to be considered
+		 * palindromic, but this ends up not mattering, since it's easy to
+		 * see that the reverse-and-add rule brings all single-digit numbers
+		 * to two-digit palindromes. Thus, we ignore these cases and begin
+		 * our search at two-digit numbers.
+		 */
+		N := 10000
+		var lychrels []int
+		for n := 10; n < N; n++ {
+			isLychrel := true
+			running := big.NewInt(int64(n))
+			for steps := 0; steps <= 50 && isLychrel; steps++ {
+				runningReverse := big.NewInt(int64(0))
+				runningReverse.SetString(reverse(running.String()), 10)
+				running.Add(runningReverse, running)
+				isLychrel = !isPalindromeString(running.String())
+			}
+			if isLychrel {
+				lychrels = append(lychrels, n)
+			}
+		}
+		fmt.Println(lychrels, "(There are", len(lychrels), "of them)")
+
 	case probNum == 59:
 		dat, _ := os.ReadFile("p059_cipher.txt")
 		cipher := strings.Split(string(dat), ",")
