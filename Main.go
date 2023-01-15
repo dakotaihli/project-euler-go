@@ -42,6 +42,16 @@ func maxS(nums []int) int {
 	return maxVal
 }
 
+func minS(nums []int) int {
+	minVal := nums[0]
+	for _, n := range nums {
+		if n < minVal {
+			minVal = n
+		}
+	}
+	return minVal
+}
+
 func fibonacci(n int) int {
 	if n <= 0 {
 		return 1
