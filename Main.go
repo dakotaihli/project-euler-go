@@ -52,6 +52,14 @@ func minS(nums []int) int {
 	return minVal
 }
 
+func sumSlice(nums []int) int {
+	var sum int
+	for _, x := range nums {
+		sum += x
+	}
+	return sum
+}
+
 func fibonacci(n int) int {
 	if n <= 0 {
 		return 1
@@ -624,5 +632,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(97)
+	problem(81)
 }

@@ -1179,10 +1179,44 @@ func problem(probNum int) {
 		} else {
 			fmt.Println("Fails!")
 		}
-		/* This should work for any secret key in which each
-		 * digit appears at most once.
-		 * TODO: Make this work for more general keys
-		 */
+	/* This should work for any secret key in which each
+	 * digit appears at most once.
+	 * TODO: Make this work for more general keys
+	 */
+
+	case probNum == 81:
+		dat, _ := os.ReadFile("p081_matrix.txt")
+		matrixRowsDat := strings.Split(string(dat), "\n")
+		//There is a blank 81st row for some reason
+		matrixDat := make([][]string, len(matrixRowsDat[:80]))
+		for i := 0; i < len(matrixDat); i++ {
+			matrixDat[i] = strings.Split(matrixRowsDat[i], ",")
+		}
+		matrix := make([][]int, len(matrixDat))
+		for i := 0; i < len(matrix); i++ {
+			matrix[i] = make([]int, len(matrixDat[i]))
+		}
+		for i := 0; i < len(matrix); i++ {
+			for j, s := range matrixDat[i] {
+				matrix[i][j], _ = strconv.Atoi(s)
+			}
+		}
+		matrixAux := make([][]int, len(matrix))
+		for i, _ := range matrixAux {
+			matrixAux[i] = make([]int, len(matrix[i]))
+		}
+		for j := 0; j < len(matrix[len(matrix)-1]); j++ {
+			matrixAux[len(matrixAux)-1][j] = sumSlice(matrix[len(matrix)-1][j:])
+		}
+		for i := len(matrix) - 2; i >= 0; i-- {
+			for j := 0; j < len(matrix[len(matrix)-i-1]); j++ {
+				matrixAux[i][j] = matrix[i][j] + matrixAux[i+1][j]
+				for k := j + 1; k < len(matrix); k++ {
+					matrixAux[i][j] = min(matrixAux[i][j], sumSlice(matrix[i][j:k+1])+matrixAux[i+1][k])
+				}
+			}
+		}
+		fmt.Println(matrixAux[0][0])
 
 	case probNum == 92:
 		N := 10000000
