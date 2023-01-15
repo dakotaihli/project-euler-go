@@ -1101,6 +1101,16 @@ func problem(probNum int) {
 		fmt.Println("100th cvgt:", h[99].String())
 		fmt.Println("Digit sum:", digitSum(h[99].String()))
 
+	case probNum == 69:
+		N := 1000000
+		max := 6
+		for n := 6; n <= N; n++ {
+			if n*eulerPhi(max) > max*eulerPhi(n) {
+				max = n
+			}
+		}
+		fmt.Println(max)
+
 	case probNum == 72:
 		N := 1000000
 		/* For fixed d, the number of reduced fractions with
