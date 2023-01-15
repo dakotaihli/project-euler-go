@@ -614,5 +614,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(79)
+	problem(97)
 }

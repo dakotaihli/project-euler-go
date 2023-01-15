@@ -1213,6 +1213,34 @@ func problem(probNum int) {
 		}
 		fmt.Println(count)
 
+	case probNum == 97:
+		/* Finding the last 10 digits of a number is (up to adding
+		 * leading zeros) the same as reducing the number modulo 10^10.
+		 * The math.big package should handle this no problem, provided
+		 * we make one key optimization beforehand: reducing 2^7830457
+		 * mod 10^10 first.
+		 * As a consequence of the Chinese Remainder Theorem, reducing
+		 * 2^7830457 mod 10^10 is equivalent to finding a solution to
+		 * the equivalences x = 2^7830457 mod 2^10 and x = 2^7830457
+		 * mod 5^10. Use integer division to write 7830457 = qn + r
+		 * with 0 <= r < n, where n is the Euler totient function at
+		 * 5^10, i.e. phi(5^10) = 5^10 * (1 - 1/5) = 4 * 5^9. Then by
+		 * Euler's theorem, 2^n = 1 mod 5^10 since gcd(2,5^10) = 1, and
+		 * so 2^7830457 = 2^r mod 5^10. It is easy to check that r =
+		 * 17957 > 10, so we also have 2^7830457 = 2^r = 0 mod 2^10.
+		 * Thus, 2^r = 2^7830457 mod 10^10 as desired.
+		 */
+		n := eulerPhi(intPow(5, 10))
+		r := big.NewInt(int64(7830457 % n))
+		p := big.NewInt(int64(2))
+		one := big.NewInt(int64(1))
+		a := big.NewInt(int64(28433))
+		mod := big.NewInt(int64(intPow(10, 10)))
+		p.Exp(p, r, mod)
+		p.Mul(p, a)
+		p.Add(p, one)
+		fmt.Println(p.String()[len(p.String())-10:])
+
 	case probNum == 293:
 		N := 1000000000
 		var admissibles []int
