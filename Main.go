@@ -5,6 +5,7 @@ import (
 	"math/big"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 func min(a, b int) int {
@@ -224,6 +225,16 @@ func removeSliceElt(s []int, i int) []int {
 			}
 		}
 		return out
+	}
+}
+
+func containsNonconsec(s, substr string) bool {
+	if len(substr) == 0 {
+		return true
+	} else if !strings.Contains(s, string(substr[0])) {
+		return false
+	} else {
+		return containsNonconsec(s[strings.Index(s, string(substr[0]))+1:], substr[1:])
 	}
 }
 
@@ -603,5 +614,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(72)
+	problem(79)
 }

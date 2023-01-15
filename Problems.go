@@ -1116,6 +1116,74 @@ func problem(probNum int) {
 		}
 		fmt.Println(sum)
 
+	case probNum == 79:
+		dat, _ := os.ReadFile("p079_keylog.txt")
+		keylog := strings.Split(string(dat), "\n")
+		keylog = keylog[:len(keylog)-1] // For some reason the last entry is blank
+		/* From looking at the raw file, I make the following
+		 * observation: suppose there is some digit n which
+		 * only ever appears in the first place of an entry.
+		 * Then for any candidate string s = (...)n(...), the
+		 * string s' = n(...)(...) is also a candidate.
+		 * Indeed, the only way this could fail to be another
+		 * candidate is if some entry had n in the second or
+		 * third place, which we assumed never happens.
+		 * Thus, we can iteratively build a candidate by
+		 * searching for such an n, placing it first, and
+		 * removing n from all entries, and repeating.
+		 */
+		digits := []rune{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}
+		maxLen := 3
+		var candidate string
+		keylogRunning := make([]string, len(keylog))
+		copy(keylogRunning, keylog)
+		for maxLen > 0 {
+			foundOne := false
+			for _, d := range digits {
+				var ok bool
+				for _, s := range keylogRunning {
+					if len(s) > 0 {
+						ok = ok || rune(s[0]) == d
+					}
+				}
+				for _, s := range keylogRunning {
+					for j := 1; j < len(s); j++ {
+						ok = ok && rune(s[j]) != d
+					}
+				}
+				if ok {
+					foundOne = true
+					candidate = candidate + string(d)
+					maxLen = 0
+					for i, s := range keylogRunning {
+						if len(s) > 0 && rune(s[0]) == d {
+							keylogRunning[i] = s[1:]
+						}
+						if len(s) > maxLen {
+							maxLen = len(s)
+						}
+					}
+				}
+			}
+			if !foundOne {
+				break
+			}
+		}
+		fmt.Println(candidate)
+		isGood := true
+		for _, s := range keylog {
+			isGood = isGood && containsNonconsec(candidate, s)
+		}
+		if isGood {
+			fmt.Println("Works!")
+		} else {
+			fmt.Println("Fails!")
+		}
+		/* This should work for any secret key in which each
+		 * digit appears at most once.
+		 * TODO: Make this work for more general keys
+		 */
+
 	case probNum == 92:
 		N := 10000000
 		var count int
