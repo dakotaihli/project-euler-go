@@ -1101,6 +1101,21 @@ func problem(probNum int) {
 		fmt.Println("100th cvgt:", h[99].String())
 		fmt.Println("Digit sum:", digitSum(h[99].String()))
 
+	case probNum == 72:
+		N := 1000000
+		/* For fixed d, the number of reduced fractions with
+		 * denominator d is precisely the number of values of
+		 * n below d such that gcd(n,d)=1 --- in other words,
+		 * phi(d), where phi is the Euler totient function.
+		 * Thus, the problem is equivalent to finding the sum
+		 * of all phi(d) for 2 <= d <= N.
+		 */
+		var sum int
+		for d := 2; d <= N; d++ {
+			sum += eulerPhi(d)
+		}
+		fmt.Println(sum)
+
 	case probNum == 92:
 		N := 10000000
 		var count int

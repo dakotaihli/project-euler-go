@@ -98,6 +98,18 @@ func primeFactorize(n int, withDuplicates bool) []int {
 	return output
 }
 
+// eulerPhi returns the Euler totient function of n
+// Uses the Euler product formula: if p1,...,pk are the distinct prime factors of n, then phi(n) = n * (1 - 1/p1) * ... * (1 - 1/pk)
+func eulerPhi(n int) int {
+	primeFactors := primeFactorize(n, false)
+	out := n
+	for _, p := range primeFactors {
+		out /= p
+		out *= p - 1
+	}
+	return out
+}
+
 func primeAfter(n int) int {
 	for p := n + 1; p <= 2*n; p++ {
 		if isPrime(p) {
@@ -591,5 +603,5 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(58)
+	problem(72)
 }
