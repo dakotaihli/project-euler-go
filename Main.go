@@ -84,14 +84,17 @@ func smallestPrime(n int) int {
 	return out
 }
 
-func primeFactorize(n int) []int {
+// primeFactorize returns the prime factors of n
+// If withDuplicates is false, only return distinctfactors
+func primeFactorize(n int, withDuplicates bool) []int {
 	var output []int
 	running := n
-	for !isPrime(running) {
-		output = append(output, smallestPrime(running))
-		running = running / smallestPrime(running)
+	for running != 1 {
+		if withDuplicates || len(output) == 0 || output[len(output)-1] != smallestPrime(running) {
+			output = append(output, smallestPrime(running)) // If withDuplicates is false, this will only add this prime once
+		}
+		running /= smallestPrime(running)
 	}
-	output = append(output, running)
 	return output
 }
 

@@ -34,7 +34,7 @@ func problem(probNum int) {
 
 	case probNum == 3:
 		N := 600851475143
-		facs := primeFactorize(N)
+		facs := primeFactorize(N, true)
 		fmt.Println(facs[len(facs)-1])
 
 	case probNum == 4:
