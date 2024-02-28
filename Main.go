@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"math/big"
 	"sort"
 	"strconv"
@@ -632,5 +633,8 @@ func isAdmissible(n int) bool {
 }
 
 func main() {
-	problem(69)
+	var problemChoice int
+	fmt.Print("Which problem to run: ")
+	fmt.Scan(&problemChoice)
+	problem(problemChoice)
 }
