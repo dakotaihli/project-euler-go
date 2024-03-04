@@ -632,6 +632,18 @@ func isAdmissible(n int) bool {
 	}
 }
 
+// indexSubset returns a boolean array representing the index-th subset of a set of size n
+func indexSubset(n, index int) []bool {
+	if (n < 0) || (index < 0) || (index >= intPow(2, n)) {
+		return nil
+	}
+	out := make([]bool, n)
+	for i := 0; i < n; i++ {
+		out[i] = ((index >> i) % 2) == 1
+	}
+	return out
+}
+
 func main() {
 	var problemChoice int
 	fmt.Print("Which problem to run: ")

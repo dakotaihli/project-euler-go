@@ -887,6 +887,85 @@ func problem(probNum int) {
 		}
 		fmt.Println(len(longestSeq), "consecutive primes add to", biggestPrime)
 
+	case probNum == 51:
+		/* Consider a candidate number N. We change the digits of N and check for primality
+		 * by converting N to a slice of its digits and operate on that slice. For example,
+		 * take N := 55667. We check, for all possible patterns (5_667, 55__7, etc.) where
+		 * the same digit goes in each blank, whether changing those digits results in
+		 * primes. For example, if we test 55__7, we use:
+		 *
+		 * 55667 --> [ 5 5 6 6 7 ]
+		 *       --> [ 5 5 0 0 7 ], [ 5 5 1 1 7 ], ...
+		 *	 --> Check whether the resulting 55007, 55117, ... are prime
+		 *
+		 * Of course, we can implement several performace improvements:
+		 * - Since our goal is the smallest prime that can generate eight primes this way,
+		 *   it suffices to change digits only by increasing them, since decreasing them
+		 *   of course decreases the resulting number.
+		 * - Furthermore, if we change a digit by increasing it and want to obtain eight
+		 *   primes this way, we need to be able to obtain eight /numbers/. Thus, it
+		 *   suffices to only try the digits 0, 1, and 2, since 3 and above don't have
+		 *   enough digits above them.
+		 * - Also, we need not include any patterns that include the ones digit, since
+		 *   primes can only end in 1, 3, 7, and 9, and hence can only produce four primes
+		 *   this way. (The only two exceptions being the single-digit primes 2 and 5, which
+		 *   are also easily seen to not be a solution.)
+		 */
+		longestRun := make([]int, 0) // We are searching for a run of length 8
+		for N := 2; len(longestRun) < 8; N++ {
+			if !isPrime(N) {
+				continue
+				// Even if N can produce eight primes, our goal is the smallest
+				// *prime* with this property.
+			}
+			digsOfN := numToDigits(N) // Digits of N into slice
+			digsBelow3 := make([][]int, 3)
+			for i, d := range digsOfN[:len(digsOfN)-1] {
+				if d < 3 {
+					digsBelow3[d] = append(digsBelow3[d], i)
+				}
+			}
+			/* digsBelow3[d] now contains the indices of occurences of d in N, for d<3.
+			 * We now iterate over possible patterns to check, each of which is
+			 * determined by a choice of d and a non-empty subset of digsBelow3[d].
+			 *
+			 * To index over subsets of a slice of length n, it suffices to index over
+			 * ints i < 2^n, and use the binary expansion of i.
+			 */
+			for d, inds := range digsBelow3 {
+				if len(inds) == 0 {
+					continue
+				}
+				for i := 1; i < intPow(2, len(inds)); i++ {
+					// While this loop is O(2^len(inds)), note that len(inds)
+					// <= len(digsOfN)-1 = O(log(N)).
+					candidatePattern := make([]bool, len(digsOfN)-1)
+					for j, k := range inds {
+						candidatePattern[k] = indexSubset(len(inds), i)[j]
+					}
+					primesOfPattern := []int{N} // We already checked N is prime
+					for newD := d + 1; newD <= 9; newD++ {
+						candDigs := make([]int, len(digsOfN))
+						copy(candDigs, digsOfN)
+						for j, e := range candidatePattern {
+							if e {
+								candDigs[j] = newD
+							}
+						}
+						if isPrime(digitsToNum(candDigs)) {
+							primesOfPattern = append(primesOfPattern, digitsToNum(candDigs))
+						}
+					}
+					if len(primesOfPattern) > len(longestRun) {
+						longestRun = primesOfPattern
+					}
+					if len(primesOfPattern) >= 8 {
+						fmt.Println(primesOfPattern)
+					}
+				}
+			}
+		}
+
 	case probNum == 52:
 		for i := 1; true; i++ {
 			isGood := true
